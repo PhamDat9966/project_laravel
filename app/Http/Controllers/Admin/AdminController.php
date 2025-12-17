@@ -22,7 +22,7 @@ class AdminController extends Controller
 
     public function index(Request $request)
     {
-        dd("index admin");
+        //dd("index admin");
         return view($this->pathViewController . 'index',[
 
         ]);
