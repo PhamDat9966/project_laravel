@@ -8,7 +8,10 @@
     <div class="container body">
       <div class="main_container">
         <div class="col-md-3 left_col">
-            @include("admin.elements.sidebar")
+            <div class="left_col scroll-view">
+                @include("admin.elements.sidebar_title")
+                @include("admin.elements.sidebar_menu")
+            </div>
         </div>
 
         <!-- top navigation -->

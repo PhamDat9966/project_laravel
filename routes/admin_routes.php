@@ -20,7 +20,7 @@ Route::prefix($prefixAdmin)
         // ARTICLE
         Route::controller(ArticeController::class)->group(function () {
             Route::prefix('article')->group(function () {
-                Route::get('/', 'index')->name('article.index');
+                Route::get('/', 'index')->name('article');
                 Route::get('/form/{id}', 'form')->name('article.form')->where('id', '[0-9]+');
                 Route::get('/delete/{id}', 'delete')->name('article.delete')->where('id', '[0-9]+');
                 Route::get('/change-status-{status}/{id}', 'status')->name('article.status');
