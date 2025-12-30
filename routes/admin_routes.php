@@ -2,6 +2,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ArticeController;
 use App\Http\Controllers\Admin\CategoryController;
 
@@ -15,6 +16,16 @@ Route::prefix($prefixAdmin)
         // DASHBOARD
         Route::controller(DashboardController::class)->group(function () {
             Route::get('/', 'index')->name('dashboard');
+        });
+
+        // USER
+        Route::controller(UserController::class)->group(function () {
+            Route::prefix('user')->group(function () {
+                Route::get('/', 'index')->name('user');
+                Route::get('/form/{id}', 'form')->name('user/form')->where('id', '[0-9]+');
+                Route::get('/delete/{id}', 'delete')->name('user/delete')->where('id', '[0-9]+');
+                Route::get('/change-status-{status}/{id}', 'status')->name('user/status');
+            });
         });
 
         // ARTICLE
