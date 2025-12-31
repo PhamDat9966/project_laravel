@@ -16,13 +16,9 @@ class UserController extends AdminController
     {
         $this->pathViewController   = 'admin.pages.user.';
         $this->controllerName       = 'user';
-        //$this->model  = new MainModel();
 
         $this->model  = new MainModel();
-        // $roleModel      = new RoleModel();
-        // $roleList       = $roleModel->listItems(null, ['task' => 'admin-list-items-in-select-box']);
 
-        // View::share('roleList',$roleList);
         View::share('controllerName',$this->controllerName);
         parent::__construct();
 
@@ -31,14 +27,15 @@ class UserController extends AdminController
     public function index(Request $request)
     {
 
-        $items              = $this->model->listItems($this->params,['task' => "admin-list-items"]);
-        $itemsStatusCount   = $this->model->countItems($this->params,['task' => "admin-count-items-group-by-status"]);
+        // Gọi method index của AdminController
+        $response = parent::index($request);
 
-        //dd($items->toArray());
+        // Lấy dữ liệu từ response của AdminController
+        $data = $response->getData(); //$data ở đây bao gồm cả 'params','items', 'itemsStatusCount'
 
-        return view($this->pathViewController . 'index',[
-            'items'             => $items,
-            'itemsStatusCount'  => $itemsStatusCount
-        ]);
+        // Thêm dữ liệu mới vào dữ liệu từ AdminController
+
+        // Trả về response mới
+        return view($this->pathViewController . 'index', (array)$data);
     }
 }
