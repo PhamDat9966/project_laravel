@@ -1,9 +1,5 @@
 @extends('admin.main')
 
-@php
-
-@endphp
-
 @section('content')
 <div class="page-header zvn-page-header clearfix">
     <div class="zvn-page-header-title">
@@ -34,8 +30,7 @@
                                 $strArray   = explode('_', $nameTable);
                                 $routerTable = array_shift($strArray) . implode('', array_map('ucfirst', $strArray));
 
-                                // $link           = route($routerTable);
-                                $link = '';
+                                $link           = route($routerTable);
                             @endphp
 
                             <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 ">
@@ -54,8 +49,7 @@
                     </div>
                 </div>
                 @php
-                    // $linkUpdate = route('dashboard/updateDoashboard');
-                    $linkUpdate = '';
+                    $linkUpdate = route('dashboard/updateDoashboard');
                 @endphp
 
                 <div class="row">

@@ -1,6 +1,8 @@
 @php
-    //dd($items->toArray());
+    use App\Helpers\Template as Template;
+    use App\Helpers\Hightlight as Hightlight;
 @endphp
+
 <div class="x_content">
     <div class="table-responsive">
         <table class="table table-striped jambo_table bulk_action">
@@ -11,8 +13,8 @@
                     <th class="column-title">Email</th>
                     <th class="column-title">Fullname</th>
                     <th class="column-title">Avatar</th>
-                    <th class="column-title">Trạng thái</th>
                     <th class="column-title">Level</th>
+                    <th class="column-title">Trạng thái</th>
                     <th class="column-title">Tạo mới</th>
                     <th class="column-title">Chỉnh sửa</th>
                     <th class="column-title">Hành động</th>
@@ -20,64 +22,71 @@
             </thead>
             <tbody>
 
-            @if (count($items) > 0)
-                @foreach ($items as $key=>$item)
-                    @php
-                        // /dd($item->toArray());
-                        $index = $key + 1;
-                        $class = ($index % 2 == 0 ) ? 'even' : 'odd';
-                        $userName   = $item['username'];
-                        $email      = $item['email'];
-                        $fullName   = $item['fullname'];
-                        $created    = $item['created'];
-                        $createdBy  = $item['created_by'];
-                        $modified   = $item['modified'];
-                        $modifiedBy = $item['modified_by'];
-                    @endphp
-                    <tr class="{{ $class }}} pointer">
-                        <td class="">{{ $index }}</td>
-                        <td width="10%">{{ $userName }}</td>
-                        <td>{{ $email }}</td>
-                        <td>{{ $fullName }}</td>
-                        <td width="5%"><img src="{{asset("admin/img/img.jpg")}}"
-                                            alt="admin" class="zvn-thumb"></td>
-                        <td><a href="/change-status-active/1"
-                                type="button" class="btn btn-round btn-success">Active</a></td>
-                        <td width="10%">
-                            <select name="select_change_attr" class="form-control"
-                                    data-url="/change-level-value_new/1">
-                                <option value="admin" selected="selected">Admin</option>
-                                <option value="member">Member</option>
-                            </select>
-                        </td>
-                        <td>
-                            <p><i class="fa fa-user"></i> {{ $created }}</p>
-                            <p><i class="fa fa-clock-o"></i> {{ $createdBy }}</p>
-                        </td>
-                        <td>
-                            <p><i class="fa fa-user"></i> {{ $modified }}</p>
-                            <p><i class="fa fa-clock-o"></i> {{ $modifiedBy }}</p>
-                        </td>
-                        <td class="last">
-                            <div class="zvn-box-btn-filter"><a
-                                    href="/form/1"
-                                    type="button" class="btn btn-icon btn-success" data-toggle="tooltip"
-                                    data-placement="top" data-original-title="Edit">
-                                <i class="fa fa-pencil"></i>
-                            </a><a href="/delete/1"
-                                    type="button" class="btn btn-icon btn-danger btn-delete"
-                                    data-toggle="tooltip" data-placement="top"
-                                    data-original-title="Delete">
-                                <i class="fa fa-trash"></i>
-                            </a>
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-            @endif
+                @if (count($items) > 0)
+                    @foreach ($items as $key => $val)
+                        @php
+                            $index              = $key+1;
+                            $class              = ($index % 2 == 0)? 'even' : 'odd';
+
+                            $id                 = $val['id'];
+                            $username           = Hightlight::show($val['username'], $params['search'] , 'username');
+                            $email              = Hightlight::show($val['email'], $params['search'] , 'email');
+                            $fullname           = Hightlight::show($val['fullname'], $params['search'] , 'fullname');
+                            $role               = Template::showRoleSelect( $controllerName,$id,'role',$val['roles_id'],$roleList);
+                            $status             = Template::showUserStatus( $controllerName,$id,$val['status'],$val['roles_id']); // $controllerName đã được share tại SliderController.php
+                            $createdHistory     = Template::showItemHistory($val['created_by'],$val['created'], $params['filter']['created']);
+                            $modifiedHistory    = Template::showItemHistoryModified($val['modified_by'],$val['modified'],$id, $params['filter']['modified']);
+                            $avatar             = Template::showItemThumb($controllerName,$val['avatar'],$val['username']);
+                            $listButtonAction   = Template::showButtonUserAction($controllerName, $id,$val['roles_id']);
+                        @endphp
+
+                        <tr class="{{$class}} pointer">
+                            <td>{{ $index }}</td>
+                            <td width="10%">
+                                <p><strong>Username:</strong> {!! $username !!}</p>
+                            </td>
+                            <td width="10%">
+                                <p><strong>Email:</strong> {!! $email !!}</p>
+                            </td>
+                            <td width="10%">
+                                <p><strong>Fullname:</strong> {!! $fullname !!}</p>
+                            </td>
+                            <td width="5%">
+                                {!!$avatar!!}
+                            </td>
+                            <td>
+                                {!!$role!!}
+                            </td>
+                            <td>
+                                {!!$status!!}
+                            </td>
+                            <td>
+                                {!!$createdHistory!!} {{--Phải dùng hai dấu !! mới đọc được nội dung--}}
+                            </td>
+                            <td>
+                                {!!$modifiedHistory!!} {{--Phải dùng hai dấu !! mới đọc được nội dung--}}
+                            </td>
+                            <td class="last">
+                                {!!$listButtonAction!!}
+
+                                {{-- <div class="zvn-box-btn-filter">
+                                    <a href="http://proj_news.xyz/admin123/slider/form/3" type="button" class="btn btn-icon btn-success" data-toggle="tooltip" data-placement="top" data-original-title="Edit">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    <a href="http://proj_news.xyz/admin123/slider/delete/3" type="button" class="btn btn-icon btn-danger btn-delete" data-toggle="tooltip" data-placement="top" data-original-title="Delete">
+                                        <i class="fa fa-trash"></i>
+                                    </a>
+                                </div> --}}
+                            </td>
+                        </tr>
+                    @endforeach
+
+                @else
+                    @include('admin.templates.list_empty',['colspan'=>6])
+                @endif
 
             </tbody>
         </table>
     </div>
 </div>
-</div>
+

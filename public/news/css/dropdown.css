@@ -1,0 +1,58 @@
+/* dropdown menu*/
+.dropdown-menu {
+    display: none;
+    transition: display 2s ease-in-out; /* Thiết lập transition cho việc biến mất */
+}
+
+.dropdown > .dropdown-toggle:active {
+    pointer-events: none;
+}
+.show {
+    display: block;
+}
+
+
+/* Sysbom */
+/* .dropdown-menu>li>a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.428571429;
+    color: #333;
+    white-space: nowrap
+}
+
+.dropdown-toggle::after {
+    display:none;
+} */
+
+
+.dropdown-menu li {
+    position: relative;
+}
+.dropdown-menu .dropdown-submenu {
+    display: none;
+    position: absolute;
+    left: 99%;
+    top: -7px;
+
+}
+.dropdown-menu .dropdown-submenu-left {
+    right: 100%;
+    left: auto;
+}
+.dropdown-menu > li:hover > .dropdown-submenu {
+    display: block;
+}
+.nav-link{
+    padding: 0.25rem 0.5rem;
+}
+
+.main_nav_list li a.active{
+    color: #61e49b !important;
+}
+
+.btn:not(:disabled):not(.disabled).active, .btn:not(:disabled):not(.disabled):active {
+    color: #61e49b !important;
+}

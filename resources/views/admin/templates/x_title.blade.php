@@ -1,5 +1,8 @@
 <div class="x_title">
     <h2>{{$title}}</h2>
+    {{-- <br>
+        <h2>{{$timeLoad ?? 0}}</h2> --}}
+
     <ul class="nav navbar-right panel_toolbox">
         <li class="pull-right"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
         </li>

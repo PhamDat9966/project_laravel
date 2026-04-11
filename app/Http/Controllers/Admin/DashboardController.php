@@ -42,6 +42,7 @@ class DashboardController extends Controller
 
     public function updateDoashboard()
     {
+        $this->clearCache();
         //cập nhật row: category
         $categoryCount = $this->model->countItems(null,['task' => 'admin-count-category-item']);
         $categoryCount = $categoryCount[0]['count'];
