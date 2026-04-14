@@ -19,7 +19,7 @@
     $formlabelAttr     = Config::get('zvn.template.form_label');
     $formInputAttr     = Config::get('zvn.template.form_input');
     $formCkeditorAttr  = Config::get('zvn.template.form_ckeditor');
-    $inputHiddenID     = Form::hidden('id' , $id);
+    $inputHiddenID     = html()->hidden('id', $id);
 
     $statusValue       =    [
                                 'active'     => Config::get('zvn.template.status.active.name'),
@@ -46,53 +46,106 @@
                             ];
 
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
+    // $elements   = [
+    //     [
+    //         'label'     =>  Form::label('name', 'Name', $formlabelAttr),
+    //         'element'   =>  Form::text('name', $name,   $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
+    //                                                                                                 // ..tính như class, id , name của thẻ input
+    //     ],
+    //     [
+    //         'label'     =>  Form::label('url', 'Url', $formlabelAttr),
+    //         'element'   =>  Form::text('url', $url,   $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
+    //                                                                                                 // ..tính như class, id , name của thẻ input
+    //     ],
+    //     [
+    //         'label'     =>  Form::label('type_menu', 'Type Menu', $formlabelAttr),
+    //         'element'   =>  Form::select('type_menu', $type_menuArr, $type_menu , $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
+    //                                                                                                 // ..tính như class, id , name của thẻ input
+    //     ],
+    //     [
+    //         'label'     =>  Form::label('type_open', 'Type Open', $formlabelAttr),
+    //         'element'   =>  Form::select('type_open', $type_openArr, $type_open , $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
+    //                                                                                                 // ..tính như class, id , name của thẻ input
+    //     ],
+    //     [
+    //         'label'     =>  Form::label('parent', 'Parent', $formlabelAttr),
+    //         'element'   =>  Form::select('parent_id', $parentArray, $parent_id , $formInputAttr)
+    //         //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
+    //     ],
+    //     [
+    //         'label'     =>  Form::label('ordering', 'Ordering', $formlabelAttr),
+    //         'element'   =>  Form::number('ordering', $ordering ,$formInputAttr)
+    //         //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
+    //     ],
+    //     [
+    //         'label'     =>  Form::label('status', 'Status', $formlabelAttr),
+    //         'element'   =>  Form::select('status', $statusValue, $status, $formInputAttr)
+    //         //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
+    //     ],
+    //     [
+    //         'label'     =>  Form::label('container', 'Container', $formlabelAttr),
+    //         'element'   =>  Form::select('container', $containerArr, $container, $formInputAttr)
+    //         //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
+    //     ],
+    //     [
+    //         'label'     =>  Form::label('note', 'Note',$formlabelAttr),
+    //         'element'   =>  Form::textarea('note', $note, $formCkeditorAttr)
+    //     ],
+    //     [
+    //         'element'   =>  $inputHiddenID . Form::submit('Save',['class'=>'btn btn-success']),
+    //         'type'      =>  'btn-submit'
+    //     ]
+
+    // ];
+
+
     $elements   = [
         [
-            'label'     =>  Form::label('name', 'Name', $formlabelAttr),
-            'element'   =>  Form::text('name', $name,   $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
+            'label'     =>  html()->label('name', 'Name')->attributes($formlabelAttr),  // Với html() trong mảng này chính là các thuộc tính như class, id , name của thẻ label
+            'element'   =>  html()->text('name', $name)->attributes($formInputAttr)  // Với collective trong mảng này chính là các thuộc..
                                                                                                     // ..tính như class, id , name của thẻ input
         ],
         [
-            'label'     =>  Form::label('url', 'Url', $formlabelAttr),
-            'element'   =>  Form::text('url', $url,   $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
+            'label'     =>  html()->label('url', 'Url')->attributes($formlabelAttr),
+            'element'   =>  html()->text('url', $url)->attributes($formInputAttr)  // Với collective trong mảng này chính là các thuộc..
                                                                                                     // ..tính như class, id , name của thẻ input
         ],
         [
-            'label'     =>  Form::label('type_menu', 'Type Menu', $formlabelAttr),
-            'element'   =>  Form::select('type_menu', $type_menuArr, $type_menu , $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
+            'label'     =>  html()->label('type_menu', 'Type Menu')->attributes($formlabelAttr),
+            'element'   =>  html()->select('type_menu', $type_menuArr, $type_menu)->attributes($formInputAttr)  // Với collective trong mảng này chính là các thuộc..
                                                                                                     // ..tính như class, id , name của thẻ input
         ],
         [
-            'label'     =>  Form::label('type_open', 'Type Open', $formlabelAttr),
-            'element'   =>  Form::select('type_open', $type_openArr, $type_open , $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
+            'label'     =>  html()->label('type_open', 'Type Open')->attributes($formlabelAttr),
+            'element'   =>  html()->select('type_open', $type_openArr, $type_open)->attributes($formInputAttr)  // Với collective trong mảng này chính là các thuộc..
                                                                                                     // ..tính như class, id , name của thẻ input
         ],
         [
-            'label'     =>  Form::label('parent', 'Parent', $formlabelAttr),
-            'element'   =>  Form::select('parent_id', $parentArray, $parent_id , $formInputAttr)
+            'label'     =>  html()->label('parent', 'Parent')->attributes($formlabelAttr),
+            'element'   =>  html()->select('parent_id', $parentArray, $parent_id )->attributes($formInputAttr)
             //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
         ],
         [
-            'label'     =>  Form::label('ordering', 'Ordering', $formlabelAttr),
-            'element'   =>  Form::number('ordering', $ordering ,$formInputAttr)
+            'label'     =>  html()->label('ordering', 'Ordering')->attributes($formlabelAttr),
+            'element'   =>  html()->number('ordering', $ordering)->attributes($formInputAttr)
             //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
         ],
         [
-            'label'     =>  Form::label('status', 'Status', $formlabelAttr),
-            'element'   =>  Form::select('status', $statusValue, $status, $formInputAttr)
+            'label'     =>  html()->label('status', 'Status')->attributes($formlabelAttr),
+            'element'   =>  html()->select('status', $statusValue, $status)->attributes($formInputAttr)
             //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
         ],
         [
-            'label'     =>  Form::label('container', 'Container', $formlabelAttr),
-            'element'   =>  Form::select('container', $containerArr, $container, $formInputAttr)
+            'label'     =>  html()->label('container', 'Container')->attributes($formlabelAttr),
+            'element'   =>  html()->select('container', $containerArr, $container)->attributes($formInputAttr)
             //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
         ],
         [
-            'label'     =>  Form::label('note', 'Note',$formlabelAttr),
-            'element'   =>  Form::textarea('note', $note, $formCkeditorAttr)
+            'label'     =>  html()->label('note', 'Note')->attributes($formlabelAttr),
+            'element'   =>  html()->textarea('note', $note)->attributes($formCkeditorAttr)
         ],
         [
-            'element'   =>  $inputHiddenID . Form::submit('Save',['class'=>'btn btn-success']),
+            'element'   =>  $inputHiddenID . html()->submit('Save')->attributes(['class' => 'btn btn-success']),
             'type'      =>  'btn-submit'
         ]
 
@@ -114,18 +167,15 @@
             <!-- x Content -->
             <div class="x_content" style="display: block;">
                 {{-- Thẻ Form::open chính là thẻ form trong html với nhiều thuộc tính hơn, lấy từ đối tượng Collective --}}
-                {!! Form::open([
-                        'url'               =>  Route($controllerName.'/save'),
-                        'method'            =>  'POST',
-                        'accept-charset'    =>  'UTF-8',
-                        'enctype'           =>  'multipart/form-data',
-                        'class'             =>  'form-horizontal form-label-left',
-                        'id'                =>  'main-form'
-                    ]) !!}
-
+                {{ html()->form('POST', route($controllerName.'/save'))
+                    ->attribute('accept-charset', 'UTF-8')
+                    ->attribute('enctype', 'multipart/form-data')
+                    ->class('form-horizontal form-label-left')
+                    ->id('main-form')
+                    ->open() }}
                     {!! FormTemplate::show($elements)!!}
 
-                {!! Form::close() !!}
+                {{ html()->form()->close() }}
             </div>
             <!-- end x Content -->
         </div>

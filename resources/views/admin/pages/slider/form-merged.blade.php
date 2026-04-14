@@ -17,8 +17,11 @@
 
     $formlabelAttr     = Config::get('zvn.template.form_label');
     $formInputAttr     = Config::get('zvn.template.form_input');
-    $inputHiddenID      = Form::hidden('id' , $id);
-    $inputHiddenThumb   = Form::hidden('thumb_current', $thumb );
+    // $inputHiddenID      = Form::hidden('id' , $id);
+    // $inputHiddenThumb   = Form::hidden('thumb_current', $thumb );
+
+    $inputHiddenID      = html()->hidden('id', $id);
+    $inputHiddenThumb   = html()->hidden('thumb_current', $thumb);
 
     $statusValue        = [
                                 'default'    => Config::get('zvn.template.status.all.name'),
@@ -33,21 +36,21 @@
                                 </p>';
 
     //$submitButton      = Form::submit('Save all',['class'=>'btn btn-success btn-merged-article']);
-    $submitButton      = '<a href="#" type="button" class="btn btn-success btn-merged-slider">Save All</a>';
+    $submitButton      = html()->submit('Save all')->class('btn btn-success btn-merged-article');
 
-    // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
+
     $elements   = [
         [
-            'label'     =>  Form::label('link', 'Link',$formlabelAttr),
-            'element'   =>  Form::text('link', $link , $formInputAttr)
+            'label'     =>  html()->label('link', 'Link')->attributes($formlabelAttr),
+            'element'   =>  html()->text('link', $link)->attributes($formInputAttr)
         ],
         [
-            'label'     =>  Form::label('status', 'Status', $formlabelAttr),
-            'element'   =>  Form::select('status', $statusValue, $status, $formInputAttr)
+            'label'     =>  html()->label('status', 'Status')->attributes($formlabelAttr),
+            'element'   =>  html()->select('status', $statusValue, $status)->attributes($formInputAttr)
         ],
         [
-            'label'     =>  Form::label('thumb', 'Thumb', $formlabelAttr),
-            'element'   =>  Form::file('thumb',  $formInputAttr),
+            'label'     =>  html()->label('thumb', 'Thumb')->attributes($formlabelAttr),
+            'element'   =>  html()->file('thumb')->attributes($formInputAttr),
             'type'      =>  'thumb',
             'thumb'     =>  (!empty($item['id'])) ? Template::showItemThumb($controllerName, $thumb , $name) : Template::showItemThumb($controllerName, '' , '')
         ],
@@ -59,26 +62,15 @@
 
 @endphp
 
-
 <!--box-lists-->
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
             <!-- x Content -->
             <div class="x_content" style="display: block;">
-                {{-- Thẻ Form::open chính là thẻ form trong html với nhiều thuộc tính hơn, lấy từ đối tượng Collective --}}
-                {!! Form::open([
-                        'url'               =>  Route($controllerName.'/save'),
-                        'method'            =>  'POST',
-                        'accept-charset'    =>  'UTF-8',
-                        'enctype'           =>  'multipart/form-data',
-                        'class'             =>  'form-horizontal form-label-left',
-                        'id'                =>  'merged-form'
-                    ]) !!}
 
-                    {!! FormTemplate::show($elements)!!}
+                    {!! FormTemplate::show($elements) !!}
 
-                {!! Form::close() !!}
             </div>
             <!-- end x Content -->
         </div>

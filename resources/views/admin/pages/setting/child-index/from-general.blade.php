@@ -38,37 +38,38 @@
                             <img id="holder" style="margin-top:15px;max-height:100px;" src="'.$logoUrl.'">';
                             //input value của input quyết định xem đường dẫn của ảnh
                             //image src quyet định hình ảnh ở vị trí nào, nếu không xuất ảnh để giá trị rỗng
+
     $elements   = [
         [
-            'label'     =>  Form::label('logo', 'Logo', $formlabelAttr),
+            'label'     =>  html()->label('logo', 'Logo')->attributes($formlabelAttr),
             'element'   =>  $inputLogoImage
         ],
         [
-            'label'     =>  Form::label('hotline', 'Hotline', $formlabelAttr),
-            'element'   =>  Form::text('hotline', $hotline, $formInputAttr)  // Với collective trong mảng này chính là các thuộc tính như class, id , name của thẻ input
+            'label'     =>  html()->label('hotline', 'Hotline')->attributes($formlabelAttr),
+            'element'   =>  html()->text('hotline', $hotline)->attributes($formInputAttr)  // Với collective trong mảng này chính là các thuộc tính như class, id , name của thẻ input
         ],
         [
-            'label'     =>  Form::label('timeword', 'Thời gian làm việc', $formlabelAttr),
-            'element'   =>  Form::text('timeword', $timeword, $formInputAttr)  // Với collective trong mảng này chính là các thuộc tính như class, id , name của thẻ input
+            'label'     =>  html()->label('timeword', 'Thời gian làm việc')->attributes($formlabelAttr),
+            'element'   =>  html()->text('timeword', $timeword)->attributes($formInputAttr)  // Với collective trong mảng này chính là các thuộc tính như class, id , name của thẻ input
         ],
         [
-            'label'     =>  Form::label('copyright', 'Copyright', $formlabelAttr),
-            'element'   =>  Form::text('copyright', $copyright, $formInputAttr)
+            'label'     =>  html()->label('copyright', 'Copyright')->attributes($formlabelAttr),
+            'element'   =>  html()->text('copyright', $copyright)->attributes($formInputAttr)
         ],
         [
-            'label'     =>  Form::label('address', 'Address', $formlabelAttr),
-            'element'   =>  Form::text('address', $address, $formInputAttr)
+            'label'     =>  html()->label('address', 'Address')->attributes($formlabelAttr),
+            'element'   =>  html()->text('address', $address)->attributes($formInputAttr)
         ],
         [
-            'label'     =>  Form::label('introduction', 'Giới thiệu',$formlabelAttr),
-            'element'   =>  Form::textarea('introduction', $introduction, $formCkeditorAttr)
+            'label'     =>  html()->label('introduction', 'Giới thiệu')->attributes($formlabelAttr),
+            'element'   =>  html()->textarea('introduction', $introduction)->attributes($formCkeditorAttr)
         ],
         [
-            'label'     =>  Form::label('googlemap', 'Google Maps',$formlabelAttr),
-            'element'   =>  Form::textarea('googlemap', $googlemap, $formInputAttr)
+            'label'     =>  html()->label('googlemap', 'Google Maps')->attributes($formlabelAttr),
+            'element'   =>  html()->textarea('googlemap', $googlemap)->attributes($formInputAttr)
         ],
         [
-            'element'   =>  Form::submit('Save',['class'=>'btn btn-success','name'=>'taskGeneral']),
+            'element'   =>  html()->submit('Save')->attributes(['class' => 'btn btn-success', 'name' => 'taskGeneral']),
             'type'      =>  'btn-submit'
         ]
 
@@ -80,18 +81,16 @@
 <div class="tab-pane fade show active in" id="home" role="tabpanel" aria-labelledby="home-tab">
     <!-- x Content -->
     <div class="x_content" style="display: block;">
-        {{-- Thẻ Form::open chính là thẻ form trong html với nhiều thuộc tính hơn, lấy từ đối tượng Collective --}}
-        {!! Form::open([
-                'url'               =>  Route($controllerName.'/saveGeneral'),
-                'method'            =>  'POST',
-                'accept-charset'    =>  'UTF-8',
-                'enctype'           =>  'multipart/form-data',
-                'class'             =>  'form-horizontal form-label-left',
-                'id'                =>  'main-form'
-            ]) !!}
+
+        {{ html()->form('POST', route($controllerName.'/save'))
+            ->attribute('accept-charset', 'UTF-8')
+            ->attribute('enctype', 'multipart/form-data')
+            ->class('form-horizontal form-label-left')
+            ->id('main-form')
+            ->open() }}
 
             {!! FormTemplate::show($elements)!!}
 
-        {!! Form::close() !!}
+        {{ html()->form()->close() }}
     </div>
 </div>

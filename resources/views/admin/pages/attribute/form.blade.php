@@ -12,7 +12,7 @@
 
     $formlabelAttr     = Config::get('zvn.template.form_label');
     $formInputAttr     = Config::get('zvn.template.form_input');
-    $inputHiddenID     = Form::hidden('id' , $id);
+    $inputHiddenID     = html()->hidden('id', $id);
 
     $statusValue        = [
                             'default'    => Config::get('zvn.template.status.all.name'),
@@ -24,19 +24,20 @@
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [
         [
-            'label'     =>  Form::label('name', 'Name', $formlabelAttr),
-            'element'   =>  Form::text('name', $name,   $formInputAttr)
+            'label'     =>  html()->label('name', 'Name')->attributes($formlabelAttr),  // Với html() trong mảng này chính là các thuộc tính như class, id , name của thẻ label
+            'element'   =>  html()->text('name', $name)->attributes($formInputAttr)  // Với html() trong mảng này chính là các thuộc..
+                                                                                                    // ..tính như class, id , name của thẻ input
         ],
         [
-            'label'     =>  Form::label('status', 'Status', $formlabelAttr),
-            'element'   =>  Form::select('status', $statusValue, $status, $formInputAttr)
+            'label'     =>  html()->label('status', 'Status')->attributes($formlabelAttr),
+            'element'   =>  html()->select('status', $statusValue, $status)->attributes($formInputAttr)
         ],
         [
-            'label'     =>  Form::label('fieldClass', 'FieldClass', $formlabelAttr),
-            'element'   =>  Form::text('fieldClass', $fieldClass,   $formInputAttr)
+            'label'     =>  html()->label('fieldClass', 'FieldClass')->attributes($formlabelAttr),
+            'element'   =>  html()->text('fieldClass', $fieldClass)->attributes($formInputAttr)
         ],
         [
-            'element'   =>  $inputHiddenID . Form::submit('Save',['class'=>'btn btn-success']),
+            'element'   =>  $inputHiddenID . html()->submit('Save')->attributes(['class' => 'btn btn-success']),
             'type'      =>  'btn-submit'
         ]
 
@@ -58,17 +59,16 @@
             <!-- x Content -->
             <div class="x_content" style="display: block;">
                 {{-- Thẻ Form::open chính là thẻ form trong html với nhiều thuộc tính hơn, lấy từ đối tượng Collective --}}
-                {!! Form::open([
-                        'url'               =>  Route($controllerName.'/save'),
-                        'method'            =>  'POST',
-                        'accept-charset'    =>  'UTF-8',
-                        'enctype'           =>  'multipart/form-data',
-                        'class'             =>  'form-horizontal form-label-left',
-                        'id'                =>  'main-form'
-                    ]) !!}
+                {{ html()->form('POST', route($controllerName.'/save'))
+                    ->attribute('accept-charset', 'UTF-8')
+                    ->attribute('enctype', 'multipart/form-data')
+                    ->class('form-horizontal form-label-left')
+                    ->id('main-form')
+                    ->open() }}
 
                     {!! FormTemplate::show($elements)!!}
-                {!! Form::close() !!}
+
+                {{ html()->form()->close() }}
             </div>
             <!-- end x Content -->
         </div>

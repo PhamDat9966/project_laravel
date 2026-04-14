@@ -29,7 +29,7 @@
         $iputHiddenIDS           = '<input type="hidden" id="'.$itemAttribute['name'].'_ids" name="'.$itemAttribute['name'].'_ids" value="'.$ids.'">';
         $iputHiddenAddIDS        = '<input type="hidden" id="'.$itemAttribute['name'].'_add" name="'.$itemAttribute['name'].'_add" value="">';
 
-        $elements[$i]['label']   = Form::label( $itemAttribute['name'] , ucwords($itemAttribute['name']) , $formlabelAttr );
+        $elements[$i]['label']   = html()->label($itemAttribute['name'], ucwords($itemAttribute['name']))->attributes($formlabelAttr);
         $elements[$i]['element'] = $tagsInput . $iputHiddenIDS . $iputHiddenAddIDS;
 
         // input chứa tập hợp các name dưới dạng tags: Tách 3 thẻ ra để test dữ liệu, tạm giữ lại khi cần
@@ -51,7 +51,7 @@
         $i++;
     }
 
-    $elements[$i]['element'] = Form::submit('Save',['class'=>'btn btn-success']);
+    $elements[$i]['element'] = html()->submit('Save')->attributes(['class' => 'btn btn-success']);
     $elements[$i]['type']    = 'btn-submit';
 
 @endphp
@@ -70,18 +70,15 @@
             @include('admin.templates.x_title',['title'=>'Form'])
             <!-- x Content -->
             <div class="x_content" style="display: block;">
-                {{-- Thẻ Form::open chính là thẻ form trong html với nhiều thuộc tính hơn, lấy từ đối tượng Collective --}}
-                {!! Form::open([
-                        'url'               =>  Route($controllerName.'/save'),
-                        'method'            =>  'POST',
-                        'accept-charset'    =>  'UTF-8',
-                        'enctype'           =>  'multipart/form-data',
-                        'class'             =>  'form-horizontal form-label-left',
-                        'id'                =>  'main-form'
-                    ]) !!}
+                {{ html()->form('POST', route($controllerName.'/save'))
+                    ->attribute('accept-charset', 'UTF-8')
+                    ->attribute('enctype', 'multipart/form-data')
+                    ->class('form-horizontal form-label-left')
+                    ->id('main-form')
+                    ->open() }}
 
                     {!! FormTemplate::show($elements)!!}
-                {!! Form::close() !!}
+                {{ html()->form()->close() }}
             </div>
             <!-- end x Content -->
         </div>

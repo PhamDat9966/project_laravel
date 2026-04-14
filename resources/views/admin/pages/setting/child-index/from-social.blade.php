@@ -14,21 +14,22 @@
     $youtubeTagsInput  = '<input type="text" value="'.$youtube.'" data-role="tagsinput" class="tags" name="youtube">';
     $googleTagsInput   = '<input type="text" value="'.$google.'" data-role="tagsinput" class="tags" name="google">';
 
+
     $elements   = [
         [
-            'label'     =>  Form::label('facebook','Facebook',$formlabelAttr),
+            'label'     =>  html()->label('facebook','Facebook')->attributes($formlabelAttr),
             'element'   =>  $facebookTagsInput
         ],
         [
-            'label'     =>  Form::label('youtube','Youtube',$formlabelAttr),
+            'label'     =>  html()->label('youtube','Youtube')->attributes($formlabelAttr),
             'element'   =>  $youtubeTagsInput
         ],
         [
-            'label'     =>  Form::label('google','Google',$formlabelAttr),
+            'label'     =>  html()->label('google','Google')->attributes($formlabelAttr),
             'element'   =>  $googleTagsInput
         ],
         [
-            'element'   =>  Form::submit('Save',['class'=>'btn btn-success']),
+            'element'   =>  html()->submit('Save')->attributes(['class' => 'btn btn-success']),
             'type'      =>  'btn-submit'
         ],
 
@@ -42,19 +43,17 @@
             <div class="tab-pane fade show active in" id="bcc" role="tabpanel" aria-labelledby="home-tab">
                 <!-- x Content -->
                 <div class="x_content" style="display: block;">
-                    {{-- Thẻ Form::open chính là thẻ form trong html với nhiều thuộc tính hơn, lấy từ đối tượng Collective --}}
-                    {!! Form::open([
-                            'url'               =>  Route($controllerName.'/saveSocial'),
-                            'method'            =>  'POST',
-                            'accept-charset'    =>  'UTF-8',
-                            'enctype'           =>  'multipart/form-data',
-                            'class'             =>  'form-horizontal form-label-left',
-                            'id'                =>  'main-form'
-                        ]) !!}
+
+                    {{ html()->form('POST', route($controllerName.'/save'))
+                        ->attribute('accept-charset', 'UTF-8')
+                        ->attribute('enctype', 'multipart/form-data')
+                        ->class('form-horizontal form-label-left')
+                        ->id('main-form')
+                        ->open() }}
 
                         {!! FormTemplate::show($elements)!!}
 
-                    {!! Form::close() !!}
+                    {{ html()->form()->close() }}
                 </div>
             </div>
         </div>

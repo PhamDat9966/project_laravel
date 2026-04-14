@@ -25,21 +25,21 @@
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [
         [
-            'label'     =>  Form::label('name', 'Tên', $formlabelAttr),
-            'element'   =>  Form::text('name', $name,   $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
+            'label'     =>  html()->label('name', 'Name')->attributes($formlabelAttr),  // Với html() trong mảng này chính là các thuộc tính như class, id , name của thẻ label
+            'element'   =>  html()->text('name', $name)->attributes($formInputAttr)  // Với html() trong mảng này chính là các thuộc..
                                                                                                     // ..tính như class, id , name của thẻ input
         ],
         [
-            'label'     =>  Form::label('cost', 'Phí vận chuyển',$formlabelAttr),
-            'element'   =>  Form::number('cost', $cost ,  $formInputAttr)
+            'label'     =>  html()->label('cost', 'Phí vận chuyển')->attributes($formlabelAttr),
+            'element'   =>  html()->number('cost', $cost)->attributes($formInputAttr)
         ],
         [
-            'label'     =>  Form::label('status', 'Status', $formlabelAttr),
-            'element'   =>  Form::select('status', $statusValue , $status , $formInputAttr)
+            'label'     =>  html()->label('status', 'Status')->attributes($formlabelAttr),
+            'element'   =>  html()->select('status', $statusValue, $status)->attributes($formInputAttr)
             //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
         ],
         [
-            'label'     => Form::label('', '', $formlabelAttr),
+            'label'     => html()->label('level', 'Level')->attributes($formlabelAttr),
             'element'   => $submitButton
         ]
 
@@ -54,17 +54,15 @@
             @include('admin.templates.x_title',['title'=>'Form'])
             <!-- x Content -->
             <div class="x_content" style="display: block;">
-                {!! Form::open([
-                        'url'               =>  Route($controllerName.'/save'),
-                        'method'            =>  'POST',
-                        'accept-charset'    =>  'UTF-8',
-                        'enctype'           =>  'multipart/form-data',
-                        'class'             =>  'form-horizontal form-label-left',
-                        'id'                =>  'main-form'
-                    ]) !!}
+                {{ html()->form('POST', route($controllerName.'/save'))
+                    ->attribute('accept-charset', 'UTF-8')
+                    ->attribute('enctype', 'multipart/form-data')
+                    ->class('form-horizontal form-label-left')
+                    ->id('main-form')
+                    ->open() }}
 
                     {!! FormTemplate::show($elements)!!}
-                {!! Form::close() !!}
+                {{ html()->form()->close() }}
             </div>
             <!-- end x Content -->
         </div>

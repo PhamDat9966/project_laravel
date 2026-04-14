@@ -159,6 +159,11 @@
                     <a href="{{ route('orderHistory') }}"><i class="fa fa-shopping-cart"></i> Lịch sử đơn hàng</a>
                 </li>
             @endif
+            @if($userInfo['roles_id'] == $primeID || in_array('access-userAgents', $user_has_permission_names) && in_array('access-userAgents', $all_permission_names_active))
+                <li id='orderHistory'>
+                    <a href="{{ route('shipping') }}"><i class="fa fa-bicycle"></i> Shipping</a>
+                </li>
+            @endif
         </ul>
     </div>
 </div>

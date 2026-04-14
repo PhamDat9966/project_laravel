@@ -33,18 +33,33 @@
                         >';
 
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
+    // $elements   = [
+    //     [
+    //         'label'     =>  Form::label('name', 'Name', $formlabelAttr),
+    //         'element'   =>  $inputNameArticleEn
+    //     ],
+    //     [
+    //         'label'     =>  Form::label('slug', 'Slug', $formlabelAttr),
+    //         'element'   =>  $inputSlugEn
+    //     ],
+    //     [
+    //         'label'     =>  Form::label('content', 'Content',$formlabelAttr),
+    //         'element'   =>  Form::textarea('content-en', $contentEn, $formInputAttr + ['id' => 'ckeditor-en'])
+    //     ]
+    // ];
+
     $elements   = [
         [
-            'label'     =>  Form::label('name', 'Name', $formlabelAttr),
+            'label'     =>  html()->label('name', 'Name')->attributes($formlabelAttr),
             'element'   =>  $inputNameArticleEn
         ],
         [
-            'label'     =>  Form::label('slug', 'Slug', $formlabelAttr),
+            'label'     =>  html()->label('slug', 'Slug')->attributes($formlabelAttr),
             'element'   =>  $inputSlugEn
         ],
         [
-            'label'     =>  Form::label('content', 'Content',$formlabelAttr),
-            'element'   =>  Form::textarea('content-en', $contentEn, $formInputAttr + ['id' => 'ckeditor-en'])
+            'label'     =>  html()->label('content', 'Content')->attributes($formlabelAttr),
+            'element'   =>  html()->textarea('content-en', $contentEn)->attributes($formInputAttr + ['id' => 'ckeditor-en'])
         ]
     ];
 
@@ -54,17 +69,7 @@
 <div class="tab-pane fade show active in" id="form-en" role="tabpanel" aria-labelledby="home-tab">
     <!-- x Content -->
     <div class="x_content" style="display: block;">
-        {!! Form::open([
-                'url'               =>  Route($controllerName.'/save'),
-                'method'            =>  'POST',
-                'accept-charset'    =>  'UTF-8',
-                'enctype'           =>  'multipart/form-data',
-                'class'             =>  'form-horizontal form-label-left',
-                'id'                =>  'main-form'
-            ]) !!}
-
             {!! FormTemplate::show($elements)!!}
-        {!! Form::close() !!}
     </div>
 </div>
 

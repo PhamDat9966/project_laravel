@@ -9,27 +9,23 @@
     $formCkeditorAttr  = Config::get('zvn.template.form_ckeditor');
 
     $id                = (isset($params['id']))? $params['id'] : '';
-    $inputHiddenID     = Form::hidden('id' , $id);
+    $inputHiddenID     = html()->hidden('id' , $id);
 
-    // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [
         [
-            'label'     =>  Form::label('passwordCurrent', 'Mật khẩu hiện tại', $formlabelAttr),
-            'element'   =>  Form::password('passwordCurrent',$formInputAttr)  // Với collective trong mảng này chính là các thuộc..
-                                                                                                    // ..tính như class, id , name của thẻ input
+            'label'     =>  html()->label('passwordCurrent', 'Mật khẩu hiện tại')->attributes($formlabelAttr),
+            'element'   =>  html()->password('passwordCurrent')->attributes($formInputAttr)
         ],
         [
-            'label'     =>  Form::label('passwordNew', 'Mật khẩu mới', $formlabelAttr),
-            'element'   =>  Form::password('password',$formInputAttr)  // Với collective trong mảng này chính là các thuộc..
-                                                                                                    // ..tính như class, id , name của thẻ input
+            'label'     =>  html()->label('passwordNew', 'Mật khẩu mới')->attributes($formlabelAttr),
+            'element'   =>  html()->password('password')->attributes($formInputAttr)
         ],
         [
-            'label'     =>  Form::label('passwordNew', 'Xác nhận mật khẩu mới', $formlabelAttr),
-            'element'   =>  Form::password('password_confirmation',$formInputAttr)  // Với collective trong mảng này chính là các thuộc..
-                                                                                                    // ..tính như class, id , name của thẻ input
+            'label'     =>  html()->label('passwordNew', 'Xác nhận mật khẩu mới')->attributes($formlabelAttr),
+            'element'   =>  html()->password('password_confirmation')->attributes($formInputAttr)
         ],
         [
-            'element'   =>  $inputHiddenID . Form::submit('Save',['class'=>'btn btn-success']),
+            'element'   =>  $inputHiddenID . html()->submit('Save')->class('btn btn-success'),
             'type'      =>  'btn-submit'
         ]
 
@@ -51,18 +47,16 @@
             <!-- x Content -->
             <div class="x_content" style="display: block;">
                 {{-- Thẻ Form::open chính là thẻ form trong html với nhiều thuộc tính hơn, lấy từ đối tượng Collective --}}
-                {!! Form::open([
-                        'url'               =>  Route($controllerName.'/save'),
-                        'method'            =>  'POST',
-                        'accept-charset'    =>  'UTF-8',
-                        'enctype'           =>  'multipart/form-data',
-                        'class'             =>  'form-horizontal form-label-left',
-                        'id'                =>  'main-form'
-                    ]) !!}
+                {{ html()->form('POST', route($controllerName.'/save'))
+                    ->attribute('accept-charset', 'UTF-8')
+                    ->attribute('enctype', 'multipart/form-data')
+                    ->class('form-horizontal form-label-left')
+                    ->id('main-form')
+                    ->open() }}
 
                     {!! FormTemplate::show($elements)!!}
 
-                {!! Form::close() !!}
+                {{ html()->form()->close() }}
             </div>
             <!-- end x Content -->
         </div>

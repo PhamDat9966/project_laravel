@@ -7,7 +7,7 @@
 
     $formlabelAttr     = Config::get('zvn.template.form_label_edit');
     $formInputAttr     = Config::get('zvn.template.form_input');
-    $inputHiddenID     = Form::hidden('id' , $id);
+    $inputHiddenID     = html()->hidden('id', $id);
 
     $roleValue        = [
                             'default'   => 'Select Role'
@@ -22,17 +22,35 @@
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [
         [
-            'label'     =>  Form::label('role', 'Role', $formlabelAttr),
-            'element'   =>  ($roles_id != $primeID) ? Form::select('roles_id', $roleValue, $roles_id, $formInputAttr) : '<label class="control-label" style="color:blue">Locked</label>'
+            'label'     =>  html()->label('role', 'Role')->attributes($formlabelAttr),
+            'element'   =>  ($roles_id != $primeID) ? html()->select('roles_id', $roleValue, $roles_id)->attributes($formInputAttr) : '<label class="control-label" style="color:blue">Locked</label>'
         ],
         [
-            'element'   =>  $inputHiddenID . Form::submit('Save',['class'=>'btn btn-success','name'=>'taskChangeLevel']),
+            'element'   =>  $inputHiddenID . html()->submit('Save')->attributes(['class' => 'btn btn-success', 'name' => 'taskChangeLevel']),
             'type'      =>  'btn-submit-edit'
         ]
     ];
 
 @endphp
 <div class="col-md-6 col-sm-12 col-xs-12">
+    <div class="x_panel">
+        @include('admin.templates.x_title',['title'=>'Quyền Truy Cập'])
+        <!-- x Content -->
+        <div class="x_content" style="display: block;">
+            {{ html()->form('POST', route($controllerName.'/change-role-post'))
+                ->attribute('accept-charset', 'UTF-8')
+                ->attribute('enctype', 'multipart/form-data')
+                ->class('form-horizontal form-label-left')
+                ->id('main-form')
+                ->open() }}
+            {!! FormTemplate::show($elements)!!}
+            {!! html()->form()->close() !!}
+        </div>
+        <!-- end x Content -->
+    </div>
+</div>
+
+{{-- <div class="col-md-6 col-sm-12 col-xs-12">
     <div class="x_panel">
         @include('admin.templates.x_title',['title'=>'Quyền Truy Cập'])
         <!-- x Content -->
@@ -49,5 +67,4 @@
         </div>
         <!-- end x Content -->
     </div>
-</div>
-
+</div> --}}

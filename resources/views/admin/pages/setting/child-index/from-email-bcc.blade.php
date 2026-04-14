@@ -11,11 +11,11 @@
     $tagsInput = '<input type="text" value="'.$bcc.'" data-role="tagsinput" class="tags" name="bcc">';
     $elements   = [
         [
-            'label'     =>  Form::label('bcc','Bcc',$formlabelAttr),
+            'label'     =>  html()->label('bcc','BCC')->attributes($formlabelAttr),
             'element'   =>  $tagsInput
         ],
         [
-            'element'   =>  Form::submit('Save',['class'=>'btn btn-success']),
+            'element'   =>  html()->submit('Save')->attributes(['class' => 'btn btn-success']),
             'type'      =>  'btn-submit'
         ]
 
@@ -28,19 +28,17 @@
             <div class="tab-pane fade show active in" id="bcc" role="tabpanel" aria-labelledby="home-tab">
                 <!-- x Content -->
                 <div class="x_content" style="display: block;">
-                    {{-- Thẻ Form::open chính là thẻ form trong html với nhiều thuộc tính hơn, lấy từ đối tượng Collective --}}
-                    {!! Form::open([
-                            'url'               =>  Route($controllerName.'/saveEmail'),
-                            'method'            =>  'POST',
-                            'accept-charset'    =>  'UTF-8',
-                            'enctype'           =>  'multipart/form-data',
-                            'class'             =>  'form-horizontal form-label-left',
-                            'id'                =>  'main-form'
-                        ]) !!}
+
+                    {{ html()->form('POST', route($controllerName.'/save'))
+                        ->attribute('accept-charset', 'UTF-8')
+                        ->attribute('enctype', 'multipart/form-data')
+                        ->class('form-horizontal form-label-left')
+                        ->id('main-form')
+                        ->open() }}
 
                         {!! FormTemplate::show($elements)!!}
 
-                    {!! Form::close() !!}
+                    {{ html()->form()->close() }}
                 </div>
             </div>
         </div>

@@ -161,6 +161,8 @@ class SliderModel extends AdminModel
 
             $thumb->storeAs($this->folderUpload, $params['thumb'],'zvn_storage_image'); // Với zvn_storege_image được định nghĩa tại 'config/filesystems.php',
                                                                              // là vị trí mặc định khi lưu ảnh
+            // Sử dụng Facade Storage để chỉ định disk rõ ràng hơn
+            // Storage::disk('zvn_storage_image')->putFileAs($this->folderUpload, $thumb, $params['thumb']);
 
             /* Save dữ liệu theo DB oject */
             // $params = array_diff_key($params,array_flip($this->crudNotActived)); // array_diff_key Hàm trả về sự khác nhau về key giữa mảng 1 và 2

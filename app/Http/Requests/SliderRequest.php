@@ -34,6 +34,7 @@ class SliderRequest extends FormRequest
      */
     public function rules()
     {
+        // dd($this->all());
         $id                 = $this->id;
         $condThumb          = 'bail|required|mimes:jpeg,jpg,png,gif|max:1000';
         $condName           = "bail|required|between:5,100|unique:$this->table,name"; // unique: Duy nhất tại table - "$this->table", column là "name"

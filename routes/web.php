@@ -24,6 +24,11 @@ require __DIR__ . '/phone_routes.php';
 require __DIR__ . '/news_routes.php';
 require __DIR__ . '/news_routes_auth.php'; //Đây là route có url gốc.
 
+use UniSharp\LaravelFilemanager\Lfm;
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'permission.admin']], function () {
+    Lfm::routes();
+});
+
 //Daily TaskSchedulerController
 use App\Http\Controllers\TaskSchedulerController;
 Route::get('/run-daily-task', [TaskSchedulerController::class, 'runDailyTask']);

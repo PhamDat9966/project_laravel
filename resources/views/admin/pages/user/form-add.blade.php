@@ -20,43 +20,42 @@
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [
         [
-            'label'     =>  Form::label('username', 'Username', $formlabelAttr),
-            'element'   =>  Form::text('username', null ,$formInputAttr)  // Với collective trong mảng này chính là các thuộc..
-                                                                                                    // ..tính như class, id , name của thẻ input
+            'label'     =>  html()->label('username', 'Username')->attributes($formlabelAttr),
+            'element'   =>  html()->text('username', null)->attributes($formInputAttr)
         ],
         [
-            'label'     =>  Form::label('fullname', 'Fullname',$formlabelAttr),
-            'element'   =>  Form::text('fullname', null , $formInputAttr)
+            'label'     =>  html()->label('fullname', 'Fullname')->attributes($formlabelAttr),
+            'element'   =>  html()->text('fullname', null)->attributes($formInputAttr)
         ],
         [
-            'label'     =>  Form::label('email', 'Email',$formlabelAttr),
-            'element'   =>  Form::text('email', null , $formInputAttr)
+            'label'     =>  html()->label('email', 'Email')->attributes($formlabelAttr),
+            'element'   =>  html()->text('email', null)->attributes($formInputAttr)
         ],
         [
-            'label'     =>  Form::label('password', 'Password',$formlabelAttr),
-            'element'   =>  Form::password('password', $formInputAttr)
+            'label'     =>  html()->label('password', 'Password')->attributes($formlabelAttr),
+            'element'   =>  html()->password('password')->attributes($formInputAttr)
         ],
         [
-            'label'     =>  Form::label('password_confirmation', 'Password_confirmation',$formlabelAttr),
-            'element'   =>  Form::password('password_confirmation', $formInputAttr)
+            'label'     =>  html()->label('password_confirmation', 'Password Confirmation')->attributes($formlabelAttr),
+            'element'   =>  html()->password('password_confirmation')->attributes($formInputAttr)
         ],
         [
-            'label'     =>  Form::label('role', 'Role', $formlabelAttr),
-            'element'   =>  Form::select('roles_id', $roleValue, 'default', $formInputAttr)
+            'label'     =>  html()->label('role', 'Role')->attributes($formlabelAttr),
+            'element'   =>  html()->select('roles_id', $roleValue, 'default')->attributes($formInputAttr)
         ],
         [
-            'label'     =>  Form::label('status', 'Status', $formlabelAttr),
-            'element'   =>  Form::select('status', $statusValue , 'default' , $formInputAttr)
+            'label'     =>  html()->label('status', 'Status')->attributes($formlabelAttr),
+            'element'   =>  html()->select('status', $statusValue , 'default' )->attributes($formInputAttr)
             //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
         ],
         [
-            'label'     =>  Form::label('avatar', 'Avatar', $formlabelAttr),
-            'element'   =>  Form::file('avatar',  $formInputAttr),
+            'label'     =>  html()->label('avatar', 'Avatar')->attributes($formlabelAttr),
+            'element'   =>  html()->file('avatar')->attributes($formInputAttr),
             'type'      =>  'thumb',
             'thumb'     =>  (!empty($item['id'])) ? Template::showItemThumb($controllerName, $avatar , $username) : ''
         ],
         [
-            'element'   =>  Form::submit('Save',['class'=>'btn btn-success','task'=>'taskAdd']),
+            'element'   =>  html()->submit('Save')->attributes(['class' => 'btn btn-success', 'task' => 'taskAdd']),
             'type'      =>  'btn-submit'
         ]
 
@@ -71,17 +70,15 @@
             @include('admin.templates.x_title',['title'=>'Form'])
             <!-- x Content -->
             <div class="x_content" style="display: block;">
-                {!! Form::open([
-                        'url'               =>  Route($controllerName.'/save'),
-                        'method'            =>  'POST',
-                        'accept-charset'    =>  'UTF-8',
-                        'enctype'           =>  'multipart/form-data',
-                        'class'             =>  'form-horizontal form-label-left',
-                        'id'                =>  'main-form'
-                    ]) !!}
+                {{ html()->form('POST', route($controllerName.'/save'))
+                    ->attribute('accept-charset', 'UTF-8')
+                    ->attribute('enctype', 'multipart/form-data')
+                    ->class('form-horizontal form-label-left')
+                    ->id('main-form')
+                    ->open() }}
 
-                    {!! FormTemplate::show($elements)!!}
-                {!! Form::close() !!}
+                        {!! FormTemplate::show($elements)!!}
+                {!! html()->form()->close() !!}
             </div>
             <!-- end x Content -->
         </div>

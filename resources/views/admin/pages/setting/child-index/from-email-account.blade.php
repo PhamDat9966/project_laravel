@@ -12,17 +12,17 @@
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [
         [
-            'label'     =>  Form::label('username', 'Tài khoảng', $formlabelAttr),
-            'element'   =>  Form::text('username', $username,   $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
+            'label'     =>  html()->label('username', 'Username')->attributes($formlabelAttr),  // Với html() trong mảng này chính là các thuộc tính như class, id , name của thẻ label
+            'element'   =>  html()->text('username', $username)->attributes($formInputAttr)  // Với html() trong mảng này chính là các thuộc..
                                                                                                     // ..tính như class, id , name của thẻ input
         ],
         [
-            'label'     =>  Form::label('password', 'Mật khẩu', $formlabelAttr),
-            'element'   =>  Form::text('password',$password,$formInputAttr)  // Với collective trong mảng này chính là các thuộc..
+            'label'     =>  html()->label('password', 'Mật khẩu')->attributes($formlabelAttr),
+            'element'   =>  html()->text('password', $password)->attributes($formInputAttr)  // Với html() trong mảng này chính là các thuộc..
                                                                                                     // ..tính như class, id , name của thẻ input
         ],
         [
-            'element'   =>  Form::submit('Save',['class'=>'btn btn-success','name'=>'taskEmailAccount']),
+            'element'   =>  html()->submit('Save')->attributes(['class' => 'btn btn-success', 'name' => 'taskEmailAccount']),
             'type'      =>  'btn-submit'
         ]
 
@@ -35,19 +35,17 @@
             <div class="tab-pane fade show active in" id="email" role="tabpanel" aria-labelledby="home-tab">
                 <!-- x Content -->
                 <div class="x_content" style="display: block;">
-                    {{-- Thẻ Form::open chính là thẻ form trong html với nhiều thuộc tính hơn, lấy từ đối tượng Collective --}}
-                    {!! Form::open([
-                            'url'               =>  Route($controllerName.'/saveEmail'),
-                            'method'            =>  'POST',
-                            'accept-charset'    =>  'UTF-8',
-                            'enctype'           =>  'multipart/form-data',
-                            'class'             =>  'form-horizontal form-label-left',
-                            'id'                =>  'main-form'
-                        ]) !!}
+
+                    {{ html()->form('POST', route($controllerName.'/save'))
+                        ->attribute('accept-charset', 'UTF-8')
+                        ->attribute('enctype', 'multipart/form-data')
+                        ->class('form-horizontal form-label-left')
+                        ->id('main-form')
+                        ->open() }}
 
                         {!! FormTemplate::show($elements)!!}
 
-                    {!! Form::close() !!}
+                    {{ html()->form()->close() }}
                 </div>
             </div>
         </div>

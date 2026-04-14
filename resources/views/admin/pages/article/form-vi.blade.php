@@ -32,19 +32,35 @@
                         >';
 
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
+    // $elements   = [
+    //     [
+    //         'label'     =>  Form::label('name', 'Tên', $formlabelAttr),
+    //         'element'   =>  $inputNameArticle                            // Với collective trong mảng này chính là các thuộc..
+    //                                                                                                 // ..tính như class, id , name của thẻ input
+    //     ],
+    //     [
+    //         'label'     =>  Form::label('slug', 'Slug', $formlabelAttr),
+    //         'element'   =>  $inputSlugVi
+    //     ],
+    //     [
+    //         'label'     =>  Form::label('content', 'Nội dung',$formlabelAttr),
+    //         'element'   =>  Form::textarea('content-vi', $contentVi, $formInputAttr + ['id' => 'ckeditor-vn'])
+    //     ]
+    // ];
+
     $elements   = [
         [
-            'label'     =>  Form::label('name', 'Tên', $formlabelAttr),
+            'label'     =>  html()->label('name', 'Tên')->attributes($formlabelAttr),
             'element'   =>  $inputNameArticle                            // Với collective trong mảng này chính là các thuộc..
                                                                                                     // ..tính như class, id , name của thẻ input
         ],
         [
-            'label'     =>  Form::label('slug', 'Slug', $formlabelAttr),
+            'label'     =>  html()->label('slug', 'Slug')->attributes($formlabelAttr),
             'element'   =>  $inputSlugVi
         ],
         [
-            'label'     =>  Form::label('content', 'Nội dung',$formlabelAttr),
-            'element'   =>  Form::textarea('content-vi', $contentVi, $formInputAttr + ['id' => 'ckeditor-vn'])
+            'label'     =>  html()->label('content', 'Nội dung')->attributes($formlabelAttr),
+            'element'   =>  html()->textarea('content-vi', $contentVi)->attributes($formInputAttr + ['id' => 'ckeditor-vn'])
         ]
     ];
 
@@ -54,17 +70,7 @@
 <div class="tab-pane fade show active in" id="form-vi" role="tabpanel" aria-labelledby="home-tab">
     <!-- x Content -->
     <div class="x_content" style="display: block;">
-        {!! Form::open([
-                'url'               =>  Route($controllerName.'/save'),
-                'method'            =>  'POST',
-                'accept-charset'    =>  'UTF-8',
-                'enctype'           =>  'multipart/form-data',
-                'class'             =>  'form-horizontal form-label-left',
-                'id'                =>  'main-form'
-            ]) !!}
-
             {!! FormTemplate::show($elements)!!}
-        {!! Form::close() !!}
     </div>
 </div>
 
