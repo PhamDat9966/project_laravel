@@ -54,7 +54,7 @@
                 ->id('main-form')
                 ->open() }}
 
-            {!! FormTemplate::show($elements)!!}
+                {!! FormTemplate::show($elements)!!}
             {!! html()->form()->close() !!}
         </div>
         <!-- end x Content -->

@@ -1,6 +1,5 @@
 <?php
 use Illuminate\Support\Facades\Route;
-use UniSharp\LaravelFilemanager\Lfm;
 
 $prefixAdmin    = config('zvn.url.prefix_admin'); //admin69
 // /http://proj_news.xyz/admin96/user
@@ -1532,6 +1531,3 @@ Route::group(['prefix'=>$prefixAdmin,'namespace'=>'Admin','middleware'=>['permis
     });
 });
 
-Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
-    Lfm::routes();
-});

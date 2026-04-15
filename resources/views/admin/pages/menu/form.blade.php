@@ -142,7 +142,7 @@
         ],
         [
             'label'     =>  html()->label('note', 'Note')->attributes($formlabelAttr),
-            'element'   =>  html()->textarea('note', $note)->attributes($formCkeditorAttr)
+            'element'   =>  html()->textarea('note', $note)->attributes($formInputAttr + ['id' => 'ckeditor-en'])
         ],
         [
             'element'   =>  $inputHiddenID . html()->submit('Save')->attributes(['class' => 'btn btn-success']),
@@ -188,3 +188,12 @@
 {{-- <script>
     CKEDITOR.replace('content');
 </script> --}}
+<script>
+    // Khởi tạo CKEditor, tích hợp với Laravel file manager với những input textarea có id = 'ckeditor' hoặc id = 'content'
+    CKEDITOR.replace('ckeditor-en', {
+        filebrowserImageBrowseUrl: '/filemanager?type=Images',
+        filebrowserImageUploadUrl: '/filemanager/upload?type=Images&_token={{ csrf_token() }}',
+        filebrowserBrowseUrl: '/filemanager?type=Files',
+        filebrowserUploadUrl: '/filemanager/upload?type=Files&_token={{ csrf_token() }}'
+    });
+</script>

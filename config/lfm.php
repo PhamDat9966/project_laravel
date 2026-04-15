@@ -100,7 +100,7 @@ return [
     |--------------------------------------------------------------------------
      */
 
-    'disk'                     => 'my_public',
+    'disk'                     => 'zvn_storage_image', // Được định nghia trong config/filesystems.php
 
     'temporary_url_duration'   => 30,
 

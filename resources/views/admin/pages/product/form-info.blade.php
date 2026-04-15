@@ -24,7 +24,7 @@
     $formlabelAttr     = Config::get('zvn.template.form_label');
     $formInputAttr     = Config::get('zvn.template.form_input');
     $formCkeditorAttr  = Config::get('zvn.template.form_ckeditor');
-    $inputHiddenID     = Form::hidden('id' , $id);
+    $inputHiddenID     = html()->hidden('id', $id);
 
     $statusValue       =    [
                                 'default'    => Config::get('zvn.template.status.all.name'),
@@ -33,7 +33,7 @@
                             ];
     $priceDiscountChoise =  [
                                 'percent'    => Config::get('zvn.template.type_price_discount.percent.name'),
-                                'value'     => Config::get('zvn.template.type_price_discount.value.name'),
+                                'value'      => Config::get('zvn.template.type_price_discount.value.name'),
                             ];
 
     $categoryValue  = $itemsCategory;
@@ -53,7 +53,8 @@
 
     foreach($attributesWithValue as $attribute){
 
-        $elementsAttribute[$i]['label'] = Form::label($attribute['attribute_name'], ucfirst($attribute['attribute_name']), $formlabelAttr);
+        //$elementsAttribute[$i]['label'] = Form::label($attribute['attribute_name'], ucfirst($attribute['attribute_name']), $formlabelAttr);
+        $elementsAttribute[$i]['label'] = html()->label($attribute['attribute_name'], ucfirst($attribute['attribute_name']))->attributes($formlabelAttr); // Sử dụng html helper để tạo label với các thuộc tính từ config
 
         //Biến định danh loại thuộc tính: color_1 màu sắc có id = 1, material-2 nguyên liệu có id = 2, slogan-3 slogan có id =3
         $attribute_type      = $attribute['attribute_name'] . '-' . $attribute['attribute_id'];
@@ -88,52 +89,51 @@
     //Dropzone thumb
     $thumbs = '<input type="file" name="file" style="display: none;">';
 
-    // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [
         [
-            'label'     =>  Form::label('name', 'Name', $formlabelAttr),
+            'label'     =>  html()->label('name', 'Name')->attributes($formlabelAttr),
             'element'   =>  $inputNameArticle                            // Với collective trong mảng này chính là các thuộc..
                                                                                                     // ..tính như class, id , name của thẻ input
         ],
         [
-            'label'     =>  Form::label('slug', 'Slug', $formlabelAttr),
-            'element'   =>  Form::text('slug', $slug,   $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
+            'label'     =>  html()->label('slug', 'Slug')->attributes($formlabelAttr),
+            'element'   =>  html()->text('slug', $slug)->attributes($formInputAttr)  // Với collective trong mảng này chính là các thuộc..
                                                                                                     // ..tính như class, id , name của thẻ input
         ],
         [
-            'label'     =>  Form::label('description', 'Description',$formlabelAttr),
-            'element'   =>  Form::textarea('description', $description, $formInputAttr)
+            'label'     =>  html()->label('description', 'Description')->attributes($formlabelAttr),
+            'element'   =>  html()->textarea('description', $description)->attributes($formInputAttr)
         ],
         [
-            'label'     =>  Form::label('thumbs', 'Thumbs',$formlabelAttr),
+            'label'     =>  html()->label('thumbs', 'Thumbs')->attributes($formlabelAttr),
             'type'      =>  "dropzone"
         ],
         [
-            'label'     =>  Form::label('status', 'Status', $formlabelAttr),
-            'element'   =>  Form::select('status', $statusValue, $status, $formInputAttr)
+            'label'     =>  html()->label('status', 'Status')->attributes($formlabelAttr),
+            'element'   =>  html()->select('status', $statusValue, $status)->attributes($formInputAttr)
             //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
         ],
         [
-            'label'     =>  Form::label('category', 'Category', $formlabelAttr),
-            'element'   =>  Form::select('category_product_id', $categoryValue, $category, $formInputAttr)
+            'label'     =>  html()->label('category', 'Category')->attributes($formlabelAttr),
+            'element'   =>  html()->select('category_product_id', $categoryValue, $category)->attributes($formInputAttr)
         ],
         [
-            'label'     =>  Form::label('price_discount_percent ', 'Price discount percent', $formlabelAttr),
-            'element'   =>  Form::text('price_discount_percent', $priceDiscountPercent,   $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
+            'label'     =>  html()->label('price_discount_percent ', 'Price discount percent')->attributes($formlabelAttr),
+            'element'   =>  html()->text('price_discount_percent', $priceDiscountPercent)->attributes($formInputAttr)  // Với collective trong mảng này chính là các thuộc..
                                                                                                     // ..tính như class, id , name của thẻ input
         ],
         [
-            'label'     =>  Form::label('price_discount_value', 'Price discount value', $formlabelAttr),
-            'element'   =>  Form::text('price_discount_value', $priceDiscountValue,   $formInputAttr)  // Với collective trong mảng này chính là các thuộc..
+            'label'     =>  html()->label('price_discount_value', 'Price discount value')->attributes($formlabelAttr),
+            'element'   =>  html()->text('price_discount_value', $priceDiscountValue)->attributes($formInputAttr)  // Với collective trong mảng này chính là các thuộc..
                                                                                                     // ..tính như class, id , name của thẻ input
         ],
         [
-            'label'     =>  Form::label('price_discount_type ', 'Price discount type', $formlabelAttr),
-            'element'   =>  Form::select('price_discount_type', $priceDiscountChoise, $priceDiscountType, $formInputAttr)
+            'label'     =>  html()->label('price_discount_type ', 'Price discount type')->attributes($formlabelAttr),
+            'element'   =>  html()->select('price_discount_type', $priceDiscountChoise, $priceDiscountType)->attributes($formInputAttr)
             //Chú thích form::select(name,array Input for select, giá trị select ban đầu mặc định là default nếu rỗng, class)
         ],
         [
-            'element'   =>  $inputHiddenID . Form::submit('Save',['class'=>'btn btn-success']),
+            'element'   =>  $inputHiddenID . html()->submit('Save')->attributes(['class'=>'btn btn-success']),
             'type'      =>  'btn-submit'
         ]
 
@@ -166,18 +166,16 @@
             <!-- x Content -->
             <div class="x_content" style="display: block;">
                 {{-- Thẻ Form::open chính là thẻ form trong html với nhiều thuộc tính hơn, lấy từ đối tượng Collective --}}
-                {!! Form::open([
-                        'url'               =>  Route($controllerName.'/save'),
-                        'method'            =>  'POST',
-                        'accept-charset'    =>  'UTF-8',
-                        'enctype'           =>  'multipart/form-data',
-                        'class'             =>  'form-horizontal form-label-left',
-                        'id'                =>  'main-form'
-                    ]) !!}
+                {{ html()->form('POST', route($controllerName.'/save'))
+                    ->attribute('accept-charset', 'UTF-8')
+                    ->attribute('enctype', 'multipart/form-data')
+                    ->class('form-horizontal form-label-left')
+                    ->id('main-form')
+                    ->open() }}
 
                     {!! FormTemplate::show($elements)!!}
 
-                {!! Form::close() !!}
+                {{ html()->form()->close() }}
                 {{--  custom file preview dropzone   --}}
 
                 <div id="tpl" style="display: none;">
@@ -213,10 +211,10 @@
     <script>
         // Khởi tạo CKEditor, tích hợp với Laravel file manager
         CKEDITOR.replace('description', {
-            filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
-            filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token={{ csrf_token() }}',
-            filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
-            filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token={{ csrf_token() }}'
+            filebrowserImageBrowseUrl: '/filemanager?type=Images',
+            filebrowserImageUploadUrl: '/filemanager/upload?type=Images&_token={{ csrf_token() }}',
+            filebrowserBrowseUrl: '/filemanager?type=Files',
+            filebrowserUploadUrl: '/filemanager/upload?type=Files&_token={{ csrf_token() }}'
         });
     </script>
 

@@ -33,31 +33,10 @@
     $categoryValue     = $itemsCategory;
 
     //$submitButton      = Form::submit('Save all',['class'=>'btn btn-success btn-merged-article']);
-    $submitButton      = '<a href="#" type="button" class="btn btn-success btn-merged-article">Save All</a>';
+    //$submitButton      = '<a href="#" type="button" class="btn btn-success btn-merged-article">Save All</a>';
+    $submitButton       = html()->button('Save all')->attributes(['type' => 'submit', 'class' => 'btn btn-success btn-merged-article']);
 
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
-    // $elements   = [
-    //     [
-    //         'label'     =>  Form::label('status', 'Trạng thái', $formlabelAttr),
-    //         'element'   =>  Form::select('status', $statusValue, $status, $formInputAttr)
-    //     ],
-    //     [
-    //         'label'     =>  Form::label('category', 'Phân loại', $formlabelAttr),
-    //         'element'   =>  Form::select('category_id', $categoryValue, $category, $formInputAttr)
-    //     ],
-    //     [
-    //         'label'     =>  Form::label('thumb', 'Hình ảnh', $formlabelAttr),
-    //         'element'   =>  Form::file('thumb',  $formInputAttr),
-    //         'type'      =>  'thumb',
-    //         'thumb'     =>  (!empty($item['id'])) ? Template::showItemThumb($controllerName, $thumb , $name) : Template::showItemThumb($controllerName, '' , '')
-    //     ],
-    //     [
-    //         'element'   =>  $inputHiddenID . $inputHiddenThumb . $submitButton . $task,
-    //         'type'      =>  'btn-submit'
-    //     ]
-
-    // ];
-
     $elements   = [
         [
             'label'     =>  html()->label('status', 'Trạng thái')->attributes($formlabelAttr),
@@ -69,7 +48,7 @@
         ],
         [
             'label'     =>  html()->label('thumb', 'Hình ảnh')->attributes($formlabelAttr),
-            'element'   =>  html()->file('thumb',  $formInputAttr),
+            'element'   =>  html()->file('thumb')->attributes($formInputAttr),
             'type'      =>  'thumb',
             'thumb'     =>  (!empty($item['id'])) ? Template::showItemThumb($controllerName, $thumb , $name) : Template::showItemThumb($controllerName, '' , '')
         ],

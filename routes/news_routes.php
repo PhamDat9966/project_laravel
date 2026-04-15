@@ -232,7 +232,33 @@ Route::prefix($prefixNews)
             });
         })->where(['locale' => 'en|vi']);
 
+        //====================== ARTICLE ======================
+        $prefix         =   'bai-viet';
+        $controllerName =   'article';
+        Route::controller(ArticleController::class)->group(function () use ($prefix, $controllerName) {
 
+            Route::get("{locale?}/{$prefix}/{article_name}-{article_id}.php", 'index')
+                ->name($controllerName . '/index')
+                ->where([
+                    'article_name' => '[a-zA-Z0-9-_]+',
+                    'article_id'   => '[0-9]+',
+                    'locale'        => 'vi|en'
+                ]);
+        });
 
+        // ====================== ARTICLE PLUS ======================
+        $prefixAlias = 'bv';
+        $controllerName = 'article';
+
+        Route::controller(ArticleController::class)->middleware('userAgent.middleware')->group(function () use ($controllerName, $prefixAlias) {
+
+            Route::get("{locale?}/{$prefixAlias}-{article_name}-{article_id}.php", 'index')
+                ->name($controllerName . '/alias')
+                ->where([
+                    'locale'        => 'en|vi',
+                    'article_name'  => '[a-zA-Z0-9-_]+',
+                    'article_id'    => '[0-9]+'
+                ])->defaults('locale', 'vi');;
+        });
 
     });

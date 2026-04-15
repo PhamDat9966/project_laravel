@@ -65,14 +65,13 @@ return [
             'url'    => env('APP_URL').'/images', // URL để hiển thị ảnh ra ngoài
             'visibility' => 'public',
         ],
-
         // ... các disk khác
-    'my_public' => [
-        'driver' => 'local',
-        'root' => public_path('images'),
-        'url' => env('APP_URL').'/images',
-        'visibility' => 'public',
-    ],
+        'my_public' => [
+            'driver' => 'local',
+            'root' => public_path('images'),
+            'url' => env('APP_URL').'/images',
+            'visibility' => 'public',
+        ],
     ],
 
     /*

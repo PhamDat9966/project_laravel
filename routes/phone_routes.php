@@ -77,7 +77,7 @@ Route::prefix($prefixPhone)->group(function () use($nameSpace)  {
     $prefix         =   'phoneItem';
     $controllerName =   'phoneItem';
 
-    Route::prefix($prefix)->middleware(['check.middleware'])->group(function () use($controllerName,$nameSpace) {
+    Route::prefix($prefix)->group(function () use($controllerName,$nameSpace) {
 
             $controller =    $nameSpace . '\\' . ucfirst($controllerName) . 'Controller';
 

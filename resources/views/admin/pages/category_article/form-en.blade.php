@@ -10,8 +10,16 @@
     $host = $request->getHost();
     $host = 'http://'.$host;
 
-    $nameEn           = (isset($itemEn['name']))? $itemEn->name : '';
-    $slugEn           = (isset($itemEn['slug']))? $itemEn->slug : '';
+    foreach($item['translations'] as $itemTrans){
+        if($itemTrans['locale'] == 'en'){
+            $nameEn = $itemTrans['name'];
+            $slugEn = $itemTrans['slug'];
+            break;
+        }else{
+            $nameEn = '';
+            $slugEn = '';
+        }
+    }
 
     $formlabelAttr     = Config::get('zvn.template.form_label');
     $formInputAttr     = Config::get('zvn.template.form_input');
@@ -34,11 +42,11 @@
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [
         [
-            'label'     =>  Form::label('name', 'Name', $formlabelAttr),
+            'label'     =>  html()->label('name', 'Name')->attributes($formlabelAttr),
             'element'   =>  $inputNameArticleEn
         ],
         [
-            'label'     =>  Form::label('slug', 'Slug', $formlabelAttr),
+            'label'     =>  html()->label('slug', 'Slug')->attributes($formlabelAttr),
             'element'   =>  $inputSlugEn
         ]
     ];
@@ -49,16 +57,6 @@
 <div class="tab-pane fade show active in" id="form-en" role="tabpanel" aria-labelledby="home-tab">
     <!-- x Content -->
     <div class="x_content" style="display: block;">
-        {!! Form::open([
-                'url'               =>  Route($controllerName.'/save'),
-                'method'            =>  'POST',
-                'accept-charset'    =>  'UTF-8',
-                'enctype'           =>  'multipart/form-data',
-                'class'             =>  'form-horizontal form-label-left',
-                'id'                =>  'main-form'
-            ]) !!}
-
             {!! FormTemplate::show($elements)!!}
-        {!! Form::close() !!}
     </div>
 </div>

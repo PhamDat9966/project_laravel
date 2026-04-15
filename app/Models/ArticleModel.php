@@ -429,7 +429,6 @@ class ArticleModel extends AdminModel
         }
 
         if($options['task'] == 'edit-item'){
-
             if(!empty($params["thumb"])){
                 /*Xóa ảnh cũ*/
                 $item   =  $this->getItem($params,['task' => 'get-thumb']);

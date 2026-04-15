@@ -41,17 +41,6 @@
                     <a href="{{ route('user')}}"><i class="fa fa-user"></i> User</a>
                 </li>
             @endif
-            @if($userInfo['roles_id'] == $primeID)
-                <li id='permission'>
-                    <a><i class="fa fa-institution"></i> Phân quyền<span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                        <li><a href="{{ route('role')}}"> Role - Vai trò</a></li>
-                        <li><a href="{{ route('permission')}}"> Permission - Phân quyền</a></li>
-                        <li><a href="{{ route('roleHasPermission')}}">Vai trò và Phân quyền</a></li>
-                        <li><a href="{{ route('modelHasPermission')}}">Gán quyền trực tiếp cho User</a></li>
-                    </ul>
-                </li>
-            @endif
             @if($userInfo['roles_id'] == $primeID || in_array('access-product', $user_has_permission_names) && in_array('access-product', $all_permission_names_active))
                 <li id='product'>
                     <a><i class="fa fa-archive"></i> Quản lý Sản Phẩm<span class="fa fa-chevron-down"></span></a>
@@ -111,6 +100,17 @@
                     <ul class="nav child_menu">
                         <li><a href="{{ route('gallery')}}"> Gallery</a></li>
                         <li><a href="{{ route('video')}}"> Playlist Youtube</a></li>
+                    </ul>
+                </li>
+            @endif
+            @if($userInfo['roles_id'] == $primeID)
+                <li id='permission'>
+                    <a><i class="fa fa-institution"></i> Phân quyền<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                        <li><a href="{{ route('role')}}"> Role - Vai trò</a></li>
+                        <li><a href="{{ route('permission')}}"> Permission - Phân quyền</a></li>
+                        <li><a href="{{ route('roleHasPermission')}}">Vai trò và Phân quyền</a></li>
+                        <li><a href="{{ route('modelHasPermission')}}">Gán quyền trực tiếp cho User</a></li>
                     </ul>
                 </li>
             @endif

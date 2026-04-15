@@ -28,6 +28,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'locale.language' => \App\Http\Middleware\LocaleLanguageMiddleware::class,
             'permission.admin' => \App\Http\Middleware\PermissionAdmin::class,
             'user.permission' => \App\Http\Middleware\UserPermissionMiddleware::class,
+            'userAgent.middleware' => \App\Http\Middleware\UserAgentMiddleware::class,
 
         ]);
     })
