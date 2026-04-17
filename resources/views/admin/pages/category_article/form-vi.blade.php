@@ -9,14 +9,17 @@
     $host = $request->getHost();
     $host = 'http://'.$host;
 
-    foreach($item['translations'] as $itemTrans){
-        if($itemTrans['locale'] == 'vi'){
-            $nameVi = $itemTrans['name'];
-            $slugVi = $itemTrans['slug'];
-            break;
-        }else{
-            $nameVi = '';
-            $slugVi = '';
+    // dd($item);
+    $nameVi = '';
+    $slugVi = '';
+
+    if($item != null){
+        foreach($item['translations'] as $itemTrans){
+            if($itemTrans['locale'] == 'vi'){
+                $nameVi = $itemTrans['name'];
+                $slugVi = $itemTrans['slug'];
+                break;
+            }
         }
     }
 

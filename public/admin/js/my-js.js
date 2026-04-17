@@ -849,7 +849,7 @@ $(document).ready(function() {
     });
 });
 
-// View Categoru Plus
+// View Category article Plus
 $(document).ready(function() {
     $('#category_article_vi').on('input', function() {
         var nameCategory = $(this).val();

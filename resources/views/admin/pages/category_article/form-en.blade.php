@@ -10,14 +10,15 @@
     $host = $request->getHost();
     $host = 'http://'.$host;
 
-    foreach($item['translations'] as $itemTrans){
-        if($itemTrans['locale'] == 'en'){
-            $nameEn = $itemTrans['name'];
-            $slugEn = $itemTrans['slug'];
-            break;
-        }else{
-            $nameEn = '';
-            $slugEn = '';
+    $nameEn = '';
+    $slugEn = '';
+    if($item != null){
+        foreach($item['translations'] as $itemTrans){
+            if($itemTrans['locale'] == 'en'){
+                $nameEn = $itemTrans['name'];
+                $slugEn = $itemTrans['slug'];
+                break;
+            }
         }
     }
 
