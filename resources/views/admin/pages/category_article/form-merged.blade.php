@@ -24,8 +24,8 @@
                           ];
     //dd($nodes);
 
-    //$submitButton      = Form::submit('Save all',['class'=>'btn btn-success btn-merged-category-article']);
-    $submitButton      = '<a href="#" type="button" class="btn btn-success btn-merged-category-article">Save All</a>';
+    // $submitButton      = '<a href="#" type="button" class="btn btn-success btn-merged-category-article">Save All</a>';
+    $submitButton      = html()->button('Save All')->attributes(['class' => 'btn btn-success']);
 
     // Dồn các thẻ thành 1 mảng, chuyển các class lặp lại vào zvn.php rồi dùng config::get để lấy ra
     $elements   = [

@@ -35,7 +35,7 @@
                                  name="name"
                                  type="text"
                                  value="'.$name.'"
-                                 id="name_category"
+                                 id="category_product"
                                  data-auto-increment="'.$autoIncrement.'"
                          >';
 
