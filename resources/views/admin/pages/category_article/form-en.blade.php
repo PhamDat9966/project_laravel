@@ -10,8 +10,13 @@
     $host = $request->getHost();
     $host = 'http://'.$host;
 
+<<<<<<< HEAD
     $nameEn = '';
     $slugEn = '';
+=======
+    // $nameEn = '';
+    // $slugEn = '';
+>>>>>>> 710e13fd946361900eb0e0d8822a5145cd9b7735
     if($item != null){
         foreach($item['translations'] as $itemTrans){
             if($itemTrans['locale'] == 'en'){
