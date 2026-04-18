@@ -62,5 +62,25 @@ class CategoryArticleController extends LocaleController
         ]);
     }
 
+    public function getAllArticles(Request $request)
+    {
+        $this->params['locale']         = $this->getLocale();
+        $this->params['category_id'] = $request->category_id;
+        $articleModel           = new ArticleModel();
+        $categoryArticleModel   = new CategoryArticleModel();
+
+        $itemCategoryArticle                = $categoryArticleModel->getItem($this->params,['task'=>'news-get-item']);
+        $itemCategoryArticle['article']     = $articleModel->listItems($this->params, ['task'=> 'news-list-all-items-in-category']);
+        $breadcrumbs                        = $categoryArticleModel->listItems($this->params,['task' => 'category-family-ancestors']);
+        $itemsLatest                        = $articleModel->listItems($this->params, ['task'=> 'news-list-items-latest']);
+
+        return view($this->pathViewController . 'index',[
+             'params'               => $this->params,
+             'itemCategoryArticle'  => $itemCategoryArticle,
+             'itemsLatest'          => $itemsLatest,
+             'breadcrumbs'          => $breadcrumbs
+        ]);
+    }
+
 }
 

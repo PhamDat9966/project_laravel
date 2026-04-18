@@ -19,5 +19,5 @@
 </div>
 
 <div class="row">
-    <div class="home_button mx-auto text-center"><a href="the-loai/the-thao-1.html">{{ $titleButton }}</a></div>
+    @include('news.block.seeMore',['itemCategoryArticle'=>$itemCategoryArticle])
 </div>

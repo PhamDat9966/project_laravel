@@ -76,13 +76,16 @@ class ArticleController extends LocaleController
         $params['category_id']  = $itemArticle['category_id'];
         $ancestorCategoryIds     = $categoryModel->listItems($params,['task' => 'category-ancestor']);
 
+        $itemCategoryArticle                = $categoryModel->getItem($this->params,['task'=>'news-get-item']);
+
         return view($this->pathViewController . 'index',[
              'params'               => $this->params,
              'itemsLatest'          => $itemsLatest,
              'itemArticle'          => $itemArticle,
              'breadcrumbs'          => $breadcrumbs,
-             'categoryId'           => $params['category_id'],  // mục tiêu đến category menu
-             'ancestorCategoryIds'  => $ancestorCategoryIds     // mục tiêu đến category menu
+             'categoryId'           => $params['category_id'],   // mục tiêu đến category menu
+             'ancestorCategoryIds'  => $ancestorCategoryIds,     // mục tiêu đến category menu
+             'itemCategoryArticle'  => $itemCategoryArticle      // mục See More
         ]);
     }
 

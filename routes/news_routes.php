@@ -41,14 +41,14 @@ Route::prefix($prefixNews)
                 ->where('category_id', '[0-9]+');
         });
 
-        // ====================== CATEGORY ======================
-        $prefix         =   'chuyen-muc';
+        // ====================== CATEGORY GET ALL ARTICLE ======================
+        $prefix         =   'all-article';
         $controllerName =   'categoryArticle';
 
         Route::controller(CategoryArticleController::class)->group(function () use ($prefix, $controllerName) {
 
-            Route::get("{locale?}/{category_name}-{category_id}.html", 'index')
-                ->name($controllerName . 'index')
+            Route::get("{locale?}/{$prefix}/{category_name}-{category_id}.php", 'getAllArticles')
+                ->name($controllerName . '/getAllArticles')
                 ->where([
                     'category_name' => '[a-zA-Z0-9-_]+',
                     'category_id'   => '[0-9]+',

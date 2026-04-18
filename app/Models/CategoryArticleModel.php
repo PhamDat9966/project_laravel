@@ -453,6 +453,16 @@ class CategoryArticleModel extends AdminModel
                     if($result != null) $result->toArray();
         }
 
+        if($options['task'] == 'news-get-all-items-in-category'){
+            $result = $this::select('ca.id','cat.name','ca.display')
+                    ->from('category_article as ca')
+                    ->leftJoin('category_article_translations as cat', 'cat.category_article_id', '=', 'ca.id')
+                    ->where('ca.id', $params['category_id'])
+                    ->where('cat.locale',$locale)
+                    ->get();
+                    if($result != null) $result->toArray();
+        }
+
         if($options['task'] == 'get-auto-increment'){
             $dataBaseName         = DB::connection()->getDatabaseName();
             $result = DB::select("SELECT AUTO_INCREMENT

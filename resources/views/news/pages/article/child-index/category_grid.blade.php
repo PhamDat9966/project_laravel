@@ -2,6 +2,7 @@
     use App\Helpers\Template as Template;
     use Illuminate\Support\Str;
     $titleButton = ($locale == 'en') ? 'See more' : 'Xem thêm';
+
 @endphp
 
 <div class="posts">
@@ -20,11 +21,7 @@
 
         </div>
         <div class="row">
-            <div class="home_button mx-auto text-center">
-                <a href="the-loai/giao-duc-2.html">
-                    {{$titleButton}}
-                </a>
-            </div>
+            @include('news.block.seeMore',['itemCategoryArticle'=>$itemCategoryArticle])
         </div>
     </div>
 </div>

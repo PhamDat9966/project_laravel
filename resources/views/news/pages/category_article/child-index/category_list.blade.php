@@ -1,7 +1,7 @@
 @php
     use App\Helpers\Template as Template;
     use Illuminate\Support\Str;
-    //dd($item);
+    // dd($item->toArray());
 @endphp
 <div class="posts">
     @foreach ($item->article as $article)
@@ -37,9 +37,7 @@
     @endforeach
 </div>
 @endif
+{{-- <div class="row">
+    @include('news.block.seeMore',['itemCategoryArticle'=>$item['article_child'][0]])
+</div> --}}
 
-
-<div class="row">
-    <div class="home_button mx-auto text-center"><a href="the-loai/the-thao-1.html">Xem
-        thêm</a></div>
-</div>

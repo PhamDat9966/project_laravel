@@ -175,6 +175,23 @@ class ArticleModel extends AdminModel
             ->get()->toArray();
         }
 
+        if($options['task'] == 'news-list-all-items-in-category'){
+
+            $result = $this::with(['translations' => function ($query) use ($params) {
+                $query->where('locale', $params['locale']);
+            }]) // Lấy dữ liệu từ relationship
+            ->select('a.id','a.name','a.content','a.slug','a.created','a.category_id','cat.name as category_name','a.thumb', 'c.name as category_name', 'c.display') // Chọn các cột cần thiết
+            ->leftJoin('category_article as c', 'a.category_id', '=', 'c.id') // Join với bảng category_article
+            ->leftJoin('category_article_translations as cat', 'cat.category_article_id', '=', 'c.id')
+            ->from('article as a')
+            ->where('a.status','=','active')
+            ->where('cat.locale',$params['locale'])
+            ->where('a.category_id','=',$params['category_id'])
+            ->orderBy('a.id', 'desc')
+            ->get()->toArray();
+        }
+
+
         if($options['task'] == 'news-list-items-in-category-id-array'){
             // $query = $this->select('a.id','a.name','a.slug','a.created','a.content','a.created','a.thumb','a.type')
             //               ->leftJoin('category_article as c', 'a.category_id', '=', 'c.id')

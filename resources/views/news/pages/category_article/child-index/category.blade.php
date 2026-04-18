@@ -1,5 +1,5 @@
 @php
-    //dd($itemCategoryArticle->toArray());
+    // dd($itemCategoryArticle->toArray());
 @endphp
 @if ($itemCategoryArticle['display'] == 'list')
     @include('news.pages.category_article.child-index.category_list',['item'=>$itemCategoryArticle,'lenghtContent'=> 500])
