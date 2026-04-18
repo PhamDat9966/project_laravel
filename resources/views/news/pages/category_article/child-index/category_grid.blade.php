@@ -1,14 +1,14 @@
 @php
     use App\Helpers\Template as Template;
     use Illuminate\Support\Str;
-
+    // dd($item->toArray());
 @endphp
 
 <div class="posts">
     <div class="col-lg-12">
         <div class="row">
             @foreach ($item['article'] as $article)
-        
+
                 <div class="col-lg-6">
                     <div class="post_item post_v_small d-flex flex-column align-items-start justify-content-start">
                         @include('news.partials.article.image',['item'=>$article])
@@ -20,7 +20,7 @@
 
         </div>
         <div class="row">
-             @include('news.block.seeMore',['itemCategoryArticle'=>$itemCategoryArticle])
+             @include('news.block.seeMore',['id'=>$itemCategoryArticle['id'],'name'=>$itemCategoryArticle['name']])
         </div>
     </div>
 </div>
@@ -42,11 +42,7 @@
                 </div>
 
             @endforeach
-
         </div>
-        {{-- <div class="row">
-            @include('news.block.seeMore',['itemCategoryArticle'=>$item['article_child'][0]])
-        </div> --}}
     </div>
 </div>
 

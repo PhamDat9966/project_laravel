@@ -19,5 +19,5 @@
 </div>
 
 <div class="row">
-    @include('news.block.seeMore',['itemCategoryArticle'=>$itemCategoryArticle])
+    @include('news.block.seeMore',['id'=>$itemCategoryArticle['id'],'name'=>$itemCategoryArticle['name']])
 </div>

@@ -1,7 +1,6 @@
 @php
     use App\Helpers\Template as Template;
     use Illuminate\Support\Str;
-    // dd($item->toArray());
 @endphp
 <div class="posts">
     @foreach ($item->article as $article)
@@ -16,6 +15,9 @@
             </div>
         </div>
     @endforeach
+</div>
+<div class="row">
+        @include('news.block.seeMore',['id'=>$itemCategoryArticle['id'],'name'=>$itemCategoryArticle['name']])
 </div>
 
 @if ($item['article_child'] != null)
@@ -37,7 +39,3 @@
     @endforeach
 </div>
 @endif
-{{-- <div class="row">
-    @include('news.block.seeMore',['itemCategoryArticle'=>$item['article_child'][0]])
-</div> --}}
-
