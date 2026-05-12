@@ -628,7 +628,6 @@ Route::prefix($prefixAdmin)
             });
 
         // ====================== PRODUCT HAS MEDIA ======================
-        $prefix         = 'productHasMedia';
         $controllerName = 'productHasMedia';
         Route::prefix($controllerName)
             ->controller(ProductHasMediaController::class)
@@ -637,8 +636,8 @@ Route::prefix($prefixAdmin)
                 Route::get('form/{id?}', 'form')
                     ->name($controllerName . '/form')
                     ->where('id', '[0-9]+');
-                Route::get('change-attribute-{attributeId}/{id}', 'changeAttribute')
-                    ->name($controllerName . '/changeAttribute');
+                Route::get('change-attribute-{attribute}/{id}', 'attribute')
+                    ->name($controllerName . '/attribute');
                 Route::post('save/{id?}', 'save')->name($controllerName . '/save');
                 Route::get('delete/{id?}/{file_name?}', 'delete')->name($controllerName . '/delete');
                 Route::get('/phone-search', 'phoneSearch')->name($controllerName . '/phoneSearch');

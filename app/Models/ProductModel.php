@@ -678,6 +678,7 @@ class ProductModel extends AdminModel
             // Kiểm tra xem, danh sách `name` của các thumb được nhập và `name` của file thumb trong bản `media` (current) có khác nhau không, nếu khác nhau thì tiến hành update
             $flagThumbUpdate        = false;
             $currentMediaContents   = MediaModel::where('product_id', $params['id'])->pluck('content')->toArray();
+
             $currentMediaNames      = [];
             foreach($currentMediaContents as $mediaElement){
                 $tempMediaElement    = json_decode($mediaElement);
@@ -696,14 +697,16 @@ class ProductModel extends AdminModel
 
                 //Các ảnh đã xóa trong dropzone khi edit thì xóa chúng ra khỏi folderUpload:
                 $deleteThumbsInDropzone = array_diff($currentMediaNames, $thumbNamesInput);
+
                 foreach($deleteThumbsInDropzone as $deleteThumb){
                     Storage::disk('zvn_storage_image')->delete($this->folderUpload . '/' . $deleteThumb);
                 }
 
                 $this->table = 'media';
-                $this->where('product_id', $params['id'])->delete(); //Xóa ảnh toàn bộ danh sách ảnh có liên quan đến product_id
+                $this->where('product_id', $params['id'])->delete(); //Xóa ảnh toàn bộ danh sách ảnh có liên quan đến product_id, để tiến hành cập nhật lại toàn bộ ảnh mới theo thứ tự mới, nếu không xóa mà chỉ thêm mới thì sẽ không thể sắp xếp được ảnh theo ý muốn của user khi thao tác trên dropzone
 
                 //Kiểm tra các ảnh từ edit Input đầu vào và danh sách có sẵn trong cơ sở dữ liệu hay ko, nếu media input không có sẵn trong csdl thì thêm mới
+                $batchInsert = [];
                 if(!empty($params['thumb']['name'])){
                     foreach ($params['thumb']['name'] as $keyMedia => $mediaNameInput) {
                         //$mediaOject        = new MediaModel();

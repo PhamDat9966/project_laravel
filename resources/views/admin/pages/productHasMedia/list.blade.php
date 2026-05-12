@@ -41,7 +41,7 @@
                             $description                    = "";
 
                             $mediaShow                      = Template::showItemMediaModal('product',$val);
-                            $selectAttributeValueForMedia   = Template::showMediaSelectAttributeWithArray($controllerName,$id,$attribute_value_id,'attribute',$val['productHasAttributes']);
+                            $selectAttributeValueForMedia   = Template::showMediaSelectAttributeWithArray($controllerName,$id,$attribute_value_id,'changeAttribute',$val['productHasAttributes']);
 
                             //$action                         = Template::showButtonActionMedia($controllerName,$id,$mediaName);
                             $action                          = "Locked";

@@ -75,6 +75,22 @@ Route::prefix($prefixNews)
 
         });
 
+        $prefixAlias    = 'ca';
+        $controllerName = 'categoryArticle';
+
+        Route::controller(CategoryArticleController::class)->group(function () use ($prefixAlias, $controllerName) {
+
+            Route::get("{locale?}/{$prefixAlias}-{category_name}-{category_id}.php", 'index')
+                ->name($controllerName . '/alias')
+                ->where([
+                    'category_name' => '[a-zA-Z0-9-_]+',
+                    'category_id'   => '[0-9]+',
+                    'locale'        => 'vi|en' // Nên giới hạn locale để tối ưu Route Matching
+                ])
+                ->defaults('locale', 'vi');
+
+        });
+
         // ====================== GALLERY ======================
         $prefixAlias    = 'thu-vien-hinh-anh';
         $controllerName = 'galleryshow';

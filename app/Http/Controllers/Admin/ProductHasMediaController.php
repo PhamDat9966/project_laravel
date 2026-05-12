@@ -53,13 +53,14 @@ class ProductHasMediaController extends AdminController
         //return view($this->pathViewController . 'index', (array)$data);
     }
 
-    public function attribute(Request $request)
+    public function changeAttribute(Request $request)
     {
         $this->clearCache();
         $params['id']                   = $request->id;
-        $params['attribute_value_id']   = $request->attribute;
+        $params['attribute_value_id']   = $request->attributeId;
+
         $returnModified                 = '';
-        $returnModified     = $this->model->saveItem($params,['task' => 'change-attribute-value-id']);
+        $returnModified                 = $this->model->saveItem($params,['task' => 'change-attribute-value-id']);
 
         //echo json_encode($returnModified);
         return response()->json([

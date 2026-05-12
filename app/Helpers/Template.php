@@ -367,9 +367,9 @@ class Template{
     }
 
     public static function showMediaSelectAttributeWithArray($controllerName , $id , $displayValue , $fieldName, $array){
-
+        // dd($controllerName , $id , $displayValue , $fieldName, $array);
         $tmplDisplay     = $array;
-        $link            = route($controllerName. '/' .$fieldName ,[$fieldName=>'value_new', 'id'=>$id]);
+        $link            = route($controllerName. '/' .$fieldName ,['attributeId'=>'value_new', 'id'=>$id]);
 
         $xhtml   =sprintf('<select id="select-change-%s" name="select_change_attr_ajax" data-url=%s class="form-control input-sm">',$id,$link);
         $xhtml  .=  sprintf('<option value="%s">%s</option>', 0,'Ảnh phụ - Không gán thuộc tính màu sắc');

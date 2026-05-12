@@ -102,7 +102,7 @@ class ProductController extends AdminController
         if($request->method() == 'POST'){
 
             $params = $request->all();  // Lấy param từ request chi dung voi POST
-            //dd($params);
+            // dd($params);
             $task   = 'add-item';
             $notify = 'Thêm phần tử thành công!';
 
@@ -110,6 +110,7 @@ class ProductController extends AdminController
             $thumbNames     = $request->input('thumb.name');        // Mảng chứa tên file từ form
             $imagePath      = public_path('images/product');       // Đường dẫn thư mục chứa ảnh
             $updatedNames   = [];
+            // dd($thumbNames, $imagePath);
             if($thumbNames){                                   // Mảng lưu tên file mới
                 foreach($thumbNames  as $tempName){
                     // Loại bỏ tiền tố 'temp_'
@@ -118,6 +119,8 @@ class ProductController extends AdminController
                     // Đường dẫn file cũ và mới, ở đây khi đổi tên file sử dụng hàm `move`nên ta vẫn phải thiết lập đường dẫn để đổi tên
                     $oldFilePath = $imagePath . '/' . $tempName;
                     $newFilePath = $imagePath . '/' . $newName;
+
+                    // dd($oldFilePath, $newFilePath);
 
                     if (File::exists($oldFilePath)) {
                         // Đổi tên file
